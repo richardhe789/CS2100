@@ -1,0 +1,12 @@
+Primitive vs. Reference Variables
+-----------------------------------
+ - Two fundamental kind of variables: primitive and Reference
+ - These names indicate how the data is stored in the memory
+ - Primitive variables are stored on the stack, Reference variables are stored on the heap.
+ 
+ To declare primitive types: 
+ - type name = value; // literal value
+    - int x = 3;
+ To declare Reference types:
+ - Type name = new Type(); // call a method to create
+    - Donkey mabel = new Donkey();

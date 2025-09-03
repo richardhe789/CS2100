@@ -1,0 +1,18 @@
+Flow of Control
+----------------
+- Sequential
+    - Execute instructions in order
+- Method calls
+    - Transfer control to method, execute instructions in method, then return with or without a value
+- Selection
+    - Execute different instructions depending on data
+- Looping
+    - Repeat a set of instructions for different data
+    - Loops: for
+        - for(int i = 0; i < 10; i++){
+            //statement(s);
+        }
+
+        - declare your iterator (i, or whatever)
+        - declare your test case
+        - increment (or decrement) your iterator
