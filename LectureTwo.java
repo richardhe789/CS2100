@@ -64,6 +64,32 @@ public class LectureTwo {
         // if (x && y) {
         // System.out.println("and!");
         // }
+
+        // for loop
+        for (int i = 0; i < 10; i++) {
+            System.out.println("hello");
+            System.out.println("hello");
+        }
+
+        int cookies = 5;
+        while (cookies > 0) {
+            System.out.println("Eating a cookie, " + cookies + " left.");
+            cookies--;
+        }
+
+        cookies = 0;
+        do {
+            cookies++;
+            System.out.println("Tried to eat a cookie, cookies = " + cookies);
+            cookies--;
+        } while (cookies > 0);
+
+        String s1 = "abc";
+        String s2 = "abc";
+
+        System.out.println(s1 == s2);
+        System.out.println(s1.equals(s2));
+
     }
 
     public static int add(int a, int b) {

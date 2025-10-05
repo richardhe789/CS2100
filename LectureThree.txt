@@ -1,0 +1,16 @@
+Java Packages
+- java.lang has basic functionality
+- java.awt has things for graphics
+- javax.swing has UI stuff
+- java.text has stuff for formatting numeric output
+- java.util has Scanner, Random, etc.
+- java.io lets you read and write to external files
+IMPORTANT NOTE
+- '==' compares reference (memory address) and returns true if both variables point to the same object
+- '.equals()' compares content and returns true if both variables have the same characters
+- '.compareTo()' returns 0 if equal length, greater than 0 if longer string than input, less than 0 if shorter string than input
+------
+- formal parameters are GIVEN in the function; actual parameters are created within the function
+
+static typing indicates that the variable's type cannot change once created.
+the keyword final means that the data cannot change for variables. it has a special meaning for methods and classes.

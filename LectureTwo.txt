@@ -16,3 +16,7 @@ Flow of Control
         - declare your iterator (i, or whatever)
         - declare your test case
         - increment (or decrement) your iterator
+    - Loops: do while
+        - do{
+            // statement(s);
+        }

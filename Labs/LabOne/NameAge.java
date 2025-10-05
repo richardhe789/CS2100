@@ -1,5 +1,3 @@
-package Labs.LabOne;
-
 import java.util.*;
 
 public class NameAge {
