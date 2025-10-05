@@ -44,10 +44,3 @@ The goal of this repository is to demonstrate understanding of:
 - Object-oriented design patterns  
 
 ---
-
-## ⚙️ How to Run
-
-### 1️⃣ Clone the Repository
-```bash
-git clone https://github.com/yourusername/CS2100.git
-cd CS2100
