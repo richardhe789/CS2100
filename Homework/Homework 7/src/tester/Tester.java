@@ -26,7 +26,8 @@ public class Tester {
 		// check forwards
 		while (!it2.isPastEnd()) {
 			if (!it1.next().equals(it2.value())) {
-				// System.out.println("BROKE HERE");
+				System.out.println("BROKE HERE");
+				System.exit(1);
 				return false;
 			}
 			it2.moveForward();
@@ -37,7 +38,7 @@ public class Tester {
 		it2 = list2.back();
 		while (!it2.isPastBeginning()) {
 			if (!it1.next().equals(it2.value())) {
-				System.out.println("BROKE HERE");
+				// System.out.println("BROKE HERE");
 				return false;
 			}
 			it2.moveBackward();
@@ -53,6 +54,7 @@ public class Tester {
 		list.LinkedList<String> testList = new list.LinkedList<String>();
 		list.ListIterator<String> studIt2 = testList.front();
 		while (!studIt2.isPastEnd())
+			// System.out.println("hah gotti");
 			System.out.println(studIt2.value());
 		System.out.println("nothing should be in list, no exceptions should occur");
 		// add one value
@@ -206,11 +208,17 @@ public class Tester {
 			/* Remove 1/4 of the time */
 			boolean remove = (int) (Math.random() * 4) == 0;
 
-			if (remove && !studIt.isPastBeginning()) {
+			// if (studIt.isPastBeginning()) {
+			// System.out.println("AAAAAAAAA");
+			// }
+			if (remove && !studIt.isPastBeginning()) { // studIt is never past beginning
+				// System.out.println("SIZE BEFORE: " + studList.size());
 				studList.remove(studIt);
+				// System.out.println("SIZE AFTER: " + studList.size());
 				compList.remove(i);
 			}
 
+			// System.out.println("SIZES: " + compList.size());
 			studIt.moveBackward();
 
 			if (!(compareLists(compList, studList))) {
@@ -231,13 +239,16 @@ public class Tester {
 			int rand = (int) Math.floor(Math.random() * 10);
 
 			if (add && !studIt.isPastBeginning()) {
+				// System.out.println("SIZE BEFORE: " + studList.size());
 				studList.insert(studIt, rand);
+				// System.out.println("SIZE AFTER: " + studList.size());
 				compList.add(i + 2, rand);
 			}
 
 			studIt.moveBackward();
 			// System.out.println("studlist is: " + studList.toString() + "complist is: " +
 			// compList.toString());
+
 			if (!(compareLists(compList, studList))) {
 				System.out.println(
 						"ERROR: insert by iterator method failed. This could also be because your iterator is not iterating backwards through the list correctly.");

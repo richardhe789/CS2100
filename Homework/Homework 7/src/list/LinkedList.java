@@ -17,12 +17,12 @@ public class LinkedList<T> implements SimpleList<T> {
 	private int size;
 
 	public LinkedList() {
-		head = new ListNode(null);
+		head = new ListNode<>(null);
+		tail = new ListNode<>(null);
 		head.next = tail;
 
-		tail = new ListNode(null);
 		tail.prev = head;
-		;
+		// ;
 		// head.next = null;
 		// tail = null;
 		size = 0;
@@ -38,7 +38,8 @@ public class LinkedList<T> implements SimpleList<T> {
 	 * Clears out the entire list
 	 */
 	public void clear() {
-		head.next = null;
+		head.next = tail;
+		tail.prev = head;
 		size = 0;
 		/* TODO: Implement this method */
 	}
@@ -51,7 +52,7 @@ public class LinkedList<T> implements SimpleList<T> {
 	 */
 	public void insertAtTail(T data) {
 		// System.out.println("INSERTING AT TAIL");
-		ListNode temp = new ListNode(data);
+		ListNode<T> temp = new ListNode<>(data);
 
 		temp.prev = tail.prev;
 		temp.next = tail;
@@ -68,17 +69,17 @@ public class LinkedList<T> implements SimpleList<T> {
 	 * @param data
 	 */
 	public void insertAtHead(T data) {
-		ListNode temp = new ListNode(data);
-		if (head.next == null) // if there's nothing at the head position
-		{
+		ListNode<T> temp = new ListNode<>(data);
+		// if (head.next == null) // if there's nothing at the head position
+		// {
 
-			head.next = temp; // head -> X
-			temp.prev = head; // head <-> X
-			temp.next = tail; // head <-> X -> tail
-			tail.prev = temp; // head <-> X <-> tail
-		} else
-			temp.next = head.next; // X --\
-									// head -> after head
+		// head.next = temp; // head -> X
+		// temp.prev = head; // head <-> X
+		// temp.next = tail; // head <-> X -> tail
+		// tail.prev = temp; // head <-> X <-> tail
+		// } else
+		temp.next = head.next; // X --\
+								// head -> after head
 		temp.prev = head; // / -- X -- \
 		// head--------> after head
 		head.next.prev = temp;
@@ -95,19 +96,19 @@ public class LinkedList<T> implements SimpleList<T> {
 	 * @param index
 	 */
 	public void insertAt(int index, T data) {
-		ListNode temp = new ListNode(data);
-		for (int i = 0; i < index; i++) {
-			head = head.next; // moves head pointer down
-		}
-		temp.next = head.next;
-		temp.prev = head; // / -- X -- \
-		// // head--------> after head
-		head.next.prev = temp;
-		head.next = temp;
-		size++;
+		ListNode<T> temp = new ListNode<>(data);
+		ListNode<T> pointer = head;
+		if (index >= 0 && index <= size()) {
+			for (int i = 0; i < index; i++) {
+				pointer = pointer.next; // moves head pointer down
+			}
+			temp.next = pointer.next;
+			temp.prev = pointer; // / -- X -- \
+			// // head--------> after head
+			pointer.next.prev = temp;
+			pointer.next = temp;
+			size++;
 
-		for (int i = 0; i < index; i++) {
-			head = head.prev; // moves head pointer back up
 		}
 		/* TODO: Implement this method */
 	}
@@ -116,23 +117,39 @@ public class LinkedList<T> implements SimpleList<T> {
 	 * Inserts data after the node pointed to by iterator
 	 */
 	public void insert(ListIterator<T> it, T data) {
+		ListNode<T> temp = new ListNode<>(data);
+		if (it != null && it.curNode != tail) {
+
+			temp.next = it.curNode.next;
+			temp.prev = it.curNode; // / -- X -- \
+			// // head--------> after head
+			it.curNode.next.prev = temp;
+			it.curNode.next = temp;
+			this.size++;
+		}
 		/* TODO: Implement this method */
 	}
 
 	public T removeAtTail() {
-		T removed = tail.prev.getData();
-		tail.prev.prev.next = tail;
-		tail.prev = tail.prev.prev;
-		size--;
+		T removed = null;
+		if (size() > 0) {
+			removed = tail.prev.getData();
+			tail.prev.prev.next = tail;
+			tail.prev = tail.prev.prev;
+			size--;
+		}
 		/* TODO: Implement this method */
 		return removed;
 	}
 
 	public T removeAtHead() {
-		T removed = head.next.getData();
-		head.next.next.prev = head;
-		head.next = head.next.next;
-		size--;
+		T removed = null;
+		if (size() > 0) {
+			removed = head.next.getData();
+			head.next.next.prev = head;
+			head.next = head.next.next;
+			size--;
+		}
 		/* TODO: Implement this method */
 		return removed;
 	}
@@ -142,8 +159,26 @@ public class LinkedList<T> implements SimpleList<T> {
 	 * Sets the iterator to the node AFTER the one removed
 	 */
 	public T remove(ListIterator<T> it) {
+		// ListNode<T> temp = new ListNode<T>(null);
+		if (it == null || it.curNode == head || it.curNode == tail) {
+			return null;
+		}
+		ListNode<T> node = it.curNode;
+		T data = node.getData();
+		node.prev.next = node.next;
+		node.next.prev = node.prev;
+		it.curNode = node.next;
+		// if (it != null && it.curNode != null && it.curNode != tail) {
+
+		// // temp = it.curNode.prev;
+		// // it.curNode.prev.next = it.curNode.next;
+		// // it.curNode.next.prev = it.curNode.prev;
+		// // it.curNode = it.curNode.next;
+		this.size--;
+		// }
+
 		/* TODO: Implement this method */
-		return null;
+		return data;// temp.getData();
 	}
 
 	/**
@@ -155,7 +190,12 @@ public class LinkedList<T> implements SimpleList<T> {
 	 */
 	public int find(T data) {
 		int index = 0;
-		while (!head.next.equals(tail.prev)) { // while head pointer doesn't hit tail
+		while (head.next != null && head.next.getData() != null && !head.next.equals(tail.prev)) { // while
+																									// head
+																									// pointer
+																									// doesn't
+																									// hit
+																									// tail
 			if (head.next.getData().equals(data)) {
 				for (int i = 0; i < index; i++) { // reset head
 					head = head.prev;
@@ -181,14 +221,16 @@ public class LinkedList<T> implements SimpleList<T> {
 	 * @return
 	 */
 	public T get(int index) {
-		T removed;
-		// System.out.println("THIS BROKE");
-		for (int i = 0; i < index; i++) {
-			head = head.next;
-		}
-		removed = head.next.getData();
-		for (int i = 0; i < index; i++) {
-			head = head.prev;
+		T removed = null;
+		if (index >= 0 && index <= size()) {
+			// System.out.println("THIS BROKE");
+			for (int i = 0; i < index; i++) {
+				head = head.next;
+			}
+			removed = head.next.getData();
+			for (int i = 0; i < index; i++) {
+				head = head.prev;
+			}
 		}
 		/* TODO: Implement this method */
 		return removed;
@@ -218,13 +260,13 @@ public class LinkedList<T> implements SimpleList<T> {
 
 		// return curNode;
 		/* TODO: Implement this method */
-		return new ListIterator<>(head);
+		return new ListIterator<>(head.next);
 		// return null;
 	}
 
 	public ListIterator<T> back() {
 		/* TODO: Implement this method */
-		return new ListIterator<>(tail);
+		return new ListIterator<>(tail.prev);
 		// return null;
 	}
 

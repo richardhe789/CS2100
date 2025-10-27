@@ -21,21 +21,32 @@ public class ListIterator<T> {
 	public boolean isPastEnd() {
 		/* TODO: Implement this method */
 		/* Hint: How do you know if you’re at the dummy tail node? */
-		if ((curNode.getData() == null) && (curNode.prev != null)) { // if it IS at the end, return false
-			// System.out.println("AAAAAAAAAA");
-			return false;
-		}
-		return true;// (curNode != null);// && (curNode.prev != null));
+		// if ((this.curNode == null) || (this.curNode.getData() == null) &&
+		// (this.curNode.prev != null)) { // if it IS at
+		// // the end,
+		// // return
+		// // false
+		// // System.out.println("AAAAAAAAAA");
+		// return true;
+		// }
+		return curNode.getData() == null && curNode.next == null;// false;// (this.curNode != null);// &&
+																	// (this.curNode.prev !=
+		// null));
 	}
 
 	public boolean isPastBeginning() {
 		/* TODO: Implement this method */
 		/* Hint: How do you know if you’re at the dummy head node? */
-		if ((curNode.getData() == null) && (curNode.next != null)) { // if it IS at the end, return false
-			System.out.println("AAAAAAAAAA");
-			return false;
-		}
-		return true;
+		// if ((this.curNode == null) && (this.curNode.getData() == null) &&
+		// (this.curNode.next != null)) { // if it IS at
+		// // the end,
+		// // return
+		// // false
+		// // System.out.println("AAAAAAAAAA");
+		// return true;
+		// }
+		// return false;
+		return curNode.getData() == null && curNode.prev == null;
 	}
 
 	/**
@@ -46,7 +57,7 @@ public class ListIterator<T> {
 		/* TODO: Implement this method */
 		/* Hint: Remember to first validate the position of the Iterator */
 		if (!isPastEnd() && !isPastBeginning()) { // if it's not past the end or is it before the beginning
-			return curNode.getData();
+			return this.curNode.getData();
 		}
 		return null;
 	}
@@ -59,8 +70,8 @@ public class ListIterator<T> {
 		/* TODO: Implement this method */
 		/* Hint: Remember to check IF you can move forward before you do! */
 		/* (Otherwise, do not move at all) */
-		if (!isPastEnd()) { // if there is something in front of you
-			curNode = curNode.next;
+		if (this.curNode != null && !isPastEnd()) { // if there is something in front of you
+			this.curNode = this.curNode.next;
 		}
 	}
 
@@ -68,8 +79,8 @@ public class ListIterator<T> {
 		/* TODO: Implement this method */
 		/* Hint: Remember to check IF you can move backwards before you do! */
 		/* (Otherwise, do not move at all) */
-		if (!isPastBeginning()) {
-			curNode = curNode.prev;
+		if (this.curNode != null && this.curNode.prev != null && !isPastBeginning()) {
+			this.curNode = this.curNode.prev;
 		}
 	}
 }
